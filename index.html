@@ -5,35 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <title>Document</title>
+    <style>
+      table,th,td {
+       border: 2px solid brown;
+       border-collapse: collapse; 
+      }
+  
+      th {
+        text-align: center;   
+   
+      } 
+      th,td {
+       padding: 5px;
+
+      } 
+      div {
+          padding: 5px;
+      }
+    </style>
 </head>
 <body ng-app="first_App">
+            
     
-    <div style="border:2px solid blue;">
-    <h2>Binding data through a form example</h2>
-     <form>
-      <label for="name">Type your name here:</label>
-      <input id="name" name="name" ng-model="name"><br><br>
-      <label for="firstName">Type your first name here:</label> 
-      <input id="name" name="name" ng-model="firstName">
-     </form> 
-     <p>Hello {{name + " " + firstName}}</p>    
-</div>
+            <!--First Example-->
+            <div style="border:2px solid blue;">
+            <h2>Binding data through a form example</h2>
+            <form>
+            <label for="name">Type your name here:</label>
+            <input id="name" name="name" ng-model="name"><br><br>
+            <label for="firstName">Type your first name here:</label> 
+            <input id="name" name="name" ng-model="firstName">
+            </form> 
+            <p>Hello {{name + " " + firstName}}</p>    
+            </div>
+ 
+   <br><br>
+            
+                 <!--Second Example-->
+                <div ng-controller="first_App_controller"  style="border:2px solid blue;">
+                    <h2>Binding data through a form by function call example(simple calculator)</h2>
+                    <form>
+                    <label for="first_Number">Enter the first number here:</label>
+                    <input id="first_Number" type="number" ng-model="number_1"><br><br>
+                    <label for="second_Number">Enter the second number here:</label>
+                    <input id="second_Number" type="number" ng-model="number_2">
+                    </form>
+                    <p>Addition of the numbers is: {{sum()}}</p>
+                    <p>Subtraction of the numbers is: {{diff()}}</p>
+                    <p>Multiplication of the numbers is: {{prod()}}</p>
+                    <p>Division of the numbers is: {{div()}}</p>
+                </div>
+   
+    
+   
+    <br><br>
+            
+            <!--Third Example-->
+            <div ng-controller="second_App_controller"  style="border:2px solid blue;">
+                <h2>Operating with events(ng-click,function call)</h2>
+                <form>
+                <label for="name">Enter your name here:</label>
+                <input id="name" type="text" ng-model="name_app"><br><br>
+                <label for="first_name">Enter your firstname:</label>
+                <input id="first_name" type="text" ng-model="first_name_app">     
+                </form>
+                <button ng-click="greet()">Click here for greeting!</button>
+                
+                <p>Greetings: {{fullName}}</p>
+            </div>
 
-<br><br>
-    
-   <div ng-controller="first_App_controller"  style="border:2px solid blue;">
-    <h2>Binding data through a form by function call example(simple calculator)</h2>
-    <form>
-     <label for="first_Number">Enter the first number here:</label>
-     <input type="number" ng-model="number_1"><br><br>
-     <label for="second_Number">Enter the second number here:</label>
-     <input type="number" ng-model="number_2">
-    </form>
-    <p>Addition of the numbers is: {{sum()}}</p>
-    <p>Subtraction of the numbers is: {{diff()}}</p>
-    <p>Multiplication of the numbers is: {{prod()}}</p>
-    <p>Division of the numbers is: {{div()}}</p>
-   </div>
+
+
+   <br><br>
+            <!--Fourth Example-->
+            <div ng-controller="third_App_controller"  style="border:2px solid blue;">
+                <h2>Operating with events(ng-repeat,traversing bidimensional array)-making a table of clients informations</h2>
+                <table>
+                   <tr>
+                       <th>Name</th>
+                       <th>Tel</th>
+                       <th>Email</th>                         
+                   </tr>
+                   <tr ng-repeat="client in clients">
+                   <td>{{client.name}}</td>
+                   <td>{{client.tel}}</td>
+                   <td>{{client.email}}</td>
+                   </tr>
+                </table>
+                </div>
 
 
 
@@ -71,6 +130,29 @@ App1.controller("first_App_controller",function($scope){
     return $scope.number_1 / $scope.number_2;
 
     };
+
+});
+
+App1.controller("second_App_controller",function($scope){
+
+$scope.name_app = "Doe";
+$scope.first_name_app = "John";
+$scope.greet = function(){
+    $scope.fullName = $scope.first_name_app + " " + $scope.name_app;      
+
+}
+});
+
+App1.controller("third_App_controller",function($scope){
+
+$scope.clients =[
+
+{"name":"John","tel":"012 965 854","email":"John@gmail.com"},
+{"name":"Robert","tel":"012 125 236","email":"Robert@gmail.com"},
+{"name":"Thomas","tel":"012 145 256","email":"Thomas@gmail.com"},
+{"name":"Richard","tel":"012 478 589","email":"Richard@gmail.com"}
+
+];
 
 });
 
