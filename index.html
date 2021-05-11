@@ -95,6 +95,25 @@
                 </div>
 
 
+                <br><br>
+                <!--Fifth Example-->
+                <div ng-controller="fourth_App_controller"  style="border:2px solid blue;">
+                    <h2>Using simple customed filter to transform the last letter of a string to the next uppercased letter in the alphabet</h2>
+                    <h3>Original list of strings</h3>
+                    <ul>
+                        <li ng-repeat="name in names">{{name}}</li>
+                      </ul>
+                      <h3>Formatted list of strings</h3>
+                    <ul>
+                       <li ng-repeat="name in names">{{name | highlight}}</li>
+                     </ul>
+                    </div>
+
+
+
+
+
+
 
 <script>
 
@@ -156,7 +175,50 @@ $scope.clients =[
 
 });
 
-</script>
 
+App1.controller("fourth_App_controller",function($scope){
+
+$scope.names = ["aaaa","bbbb","cccc","dddd"];
+
+});
+
+App1.filter("highlight",function(){
+
+    function replacement(letter){
+ 
+         var ASCII_code = letter.charCodeAt(0);
+         ASCII_code = ASCII_code + 1; 
+         var replacement_Letter = String.fromCharCode(ASCII_code);
+         letter = letter.replace(letter,replacement_Letter); 
+         letter = letter.toUpperCase();
+         return letter;
+    }
+
+
+
+return function(x){
+    var txt="";
+    var output;
+    var c;
+    
+    for( i=0; i < x.length; i++){
+         c = x[i];
+       
+         if(  i === x.length-1 ){
+        
+            txt += replacement(c);
+        
+        }else{         
+            txt += c;         
+        }
+                
+    }
+
+    return txt;
+
+}
+
+});
+</script>
 </body>
 </html>
