@@ -109,7 +109,27 @@
                      </ul>
                     </div>
 
+                    <br><br>
+                    <!--Sixth Example-->
+                    <div ng-controller="fifth_App_controller"  style="border:2px solid blue;">
+                        <h2>Using customed filter dependent on user input to search</h2>
+                    
+                         
+                        <form>
+                           <label for="searched_book">Enter book name here to search a match with our books available in store:</label>
+                           <input type="text" id="searched_book" name="searched_book" ng-model="entered_Book_Name">
+                         </form>
+                         
 
+                        <ul>
+                            <li ng-repeat="book in books | searchBook:entered_Book_Name">
+                               <h3>{{book.name}}</h3><span> by {{book.author}}</span>   
+                               <p>{{book.description}}</p>
+                               <img width="200px" height="200px" ng-src="{{book.image}}"> 
+                            </li>
+                        </ul>
+                        
+                        </div>
 
 
 
@@ -219,6 +239,65 @@ return function(x){
 }
 
 });
+
+App1.controller("fifth_App_controller",function($scope){
+
+                $scope.books = [
+
+                {
+                name:"The Dream-Quest of Unknown Kadath",
+                author:"H. P. Lovecraft",
+                description:"The Dream-Quest of Unknown Kadath is a novella by American writer H. P. Lovecraft. Begun probably in the autumn of 1926, the draft was completed on January 22, 1927 and it remained unrevised and unpublished in his lifetime. It is both the longest of the stories that make up his Dream Cycle and the longest Lovecraft work to feature protagonist Randolph Carter. Along with his 1927 novel The Case of Charles Dexter Ward, it can be considered one of the significant achievements of that period of Lovecraft's writing. The Dream-Quest combines elements of horror and fantasy into an epic tale that illustrates the scope and wonder of humankind's ability to dream. ",
+                image:"books_images/The Dream-Quest of Unknown Kadath.jpg"
+                },
+
+                {
+                name:"2001: A Space Odyssey",
+                author:"Arthur C. Clarke.",
+                description:"2001: A Space Odyssey is a 1968 science fiction novel by British writer Arthur C. Clarke. It was developed concurrently with Stanley Kubrick's film version and published after the release of the film. Clarke and Kubrick worked on the book together, but eventually only Clarke ended up as the official author. The story is based in part on various short stories by Clarke, including \"The Sentinel\" (written in 1948 for a BBC competition, but first published in 1951 under the title \"Sentinel of Eternity\"). By 1992, the novel had sold three million copies worldwide.[1] An elaboration of Clarke and Kubrick's collaborative work on this project was made in the 1972 book The Lost Worlds of 2001. ",
+                image:"books_images/2001_A_Space_Odyssey-Arthur_C._Clarke.jpg"
+                },
+
+                {
+                name:"The Andromeda Strain",
+                author:"Michael Crichton",
+                description:"The Andromeda Strain is a 1969 techno-thriller novel by Michael Crichton, his first novel under his own name and his sixth novel overall. It is written as a report documenting the efforts of a team of scientists investigating the outbreak of a deadly extraterrestrial microorganism in Arizona. The Andromeda Strain appeared in the New York Times Best Seller list, establishing Michael Crichton as a genre writer. ",
+                image:"books_images/Big-andromedastrain.jpg"
+                },
+
+                {
+                name:"Do Androids Dream of Electric Sheep?",
+                author:"Philip K. Dick",
+                description:"Do Androids Dream of Electric Sheep? (retitled Blade Runner: Do Androids Dream of Electric Sheep? in some later printings) is a dystopian science fiction novel by American writer Philip K. Dick, first published in 1968. The novel is set in a post-apocalyptic San Francisco, where Earth's life has been greatly damaged by a nuclear global war, leaving most animal species endangered or extinct. The main plot follows Rick Deckard, a bounty hunter who is tasked with \"retiring\" (i.e. killing) six escaped Nexus-6 model androids, while a secondary plot follows John Isidore, a man of sub-par IQ who aids the fugitive androids.The book served as the primary basis for the 1982 film Blade Runner and many elements and themes from it were used in the film's 2017 sequel Blade Runner 2049. ",
+                image:"books_images/DoAndroidsDream.png"
+                },
+
+                ];
+
+});
+
+App1.filter("searchBook",function(){
+
+return function(book,entered_Book_Name){
+  
+      if(!entered_Book_Name){
+          return book;
+      }
+       
+       result = [];
+       entered_Book_Name = entered_Book_Name.toLowerCase();
+        
+       angular.forEach(book,function(searchedBook) {
+           if(searchedBook.name.toLowerCase().indexOf(entered_Book_Name)  !== -1 ){
+            result.push(searchedBook);  
+           }
+       });
+       
+    return result;
+}
+
+});
+
 </script>
 </body>
 </html>
