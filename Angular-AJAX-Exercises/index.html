@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+     table,th,td{
+         border: 1px solid brown;
+         border-collapse: collapse;  
+     }
+     th{
+         text-align: center;
+     }
+     th,td {
+         padding: 5px;
+     }
+
+    </style>
+    <title>AJAX and Angular</title>
+</head>
+<body ng-app="Angular-AJAX-App">
+    <div style="border:2px solid blue;" ng-controller="first_Controller">
+          <h2>{{a}}Table created with data taken from a .php file</h2>
+          <table>
+             <tr>
+                 <th>Name</th>
+                 <th>Occupation</th>
+             </tr>
+              <tr ng-repeat="person in persons">
+                  <td>{{person.name}}</td>
+                  <td>{{person.occupation}}</td>
+              </tr>
+
+          </table>
+  
+    </div>
+
+<script>
+
+var App = new angular.module("Angular-AJAX-App",[]);
+
+App.controller("first_Controller",function($scope,$http){
+
+ 
+
+$http({
+  method:"GET",
+  url:"php_Files/persons.php"
+}).then(function succcess(response){
+  
+    $scope.persons = response.data;
+   
+},function error(){
+
+    alert("There has been an AngularJS error!!!");
+});
+
+});
+
+
+
+</script>
+
+
+</body>
+</html>
